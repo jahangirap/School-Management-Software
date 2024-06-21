@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Class info
+      </ui:define>
+      <ui:define name="content">
+        <f:view>
+          <h:form id="inform">
+            <p:growl id="grl" showDetail="true"/>
+            <p:fieldset legend="Add New Class" id="fld" style="font-size: 9pt;">
+              <p:panelGrid columns="2">
+                <p:column>
+                  <p:outputLabel value="Class Name :" /><br/>
+                  <p:inputText id="cls" value="#{classBean.className}" required="true" requiredMessage="Field must not empty."/>                                    
+                </p:column>
+                <p:column>
+                  <p:outputLabel value=""/>
+                  <p:commandButton value="Save" action="#{classBean.insertClassName()}" icon="ui-icon-disk" update=":inform:grl,:inform:cls,:dtform:dt"/>
+                </p:column>
+              </p:panelGrid>
+            </p:fieldset>
+            </h:form>
+          <h:form id="dtform">
+            <p:dataTable id="dt" value="#{classBean.allClassName}" var="item" style="font-size: 9pt;">
+              <p:column headerText="SL no." style="text-align: center;width: 20px;">                               
+                #{item.serialNo}
+              </p:column>
+              <p:column headerText="Class Name" style="text-align: center">                               
+                #{item.className}
+              </p:column>
+              <p:column headerText="Edit" style="text-align: center;width: 20px;">
+                <p:rowToggler/>
+              </p:column>
+              <p:column headerText="option" style="width: 150px;">                                                                                     
+                <p:commandButton value="Delete" action="#{classBean.deleteData}" icon="ui-icon-close" update=":inform:grl,:dtform:dt"  style="font-size: 7pt;color: red;">
+                  <f:setPropertyActionListener target="#{classBean}" value="#{item}"/>
+                </p:commandButton>                        
+              </p:column>
+              <p:rowExpansion>
+                <p:fieldset legend="Edit Academic Year" id="up">
+                  <p:panelGrid columns="2" style="width: 400px;">
+                    <p:outputLabel value="Old Academic Year :" style="text-align: right;"/>
+                    <p:outputLabel value="#{item.className}"/>
+
+                    <p:outputLabel value="New Academic Year :"/>
+                    <p:inputText value="#{classBean.newClassName}" required="true" requiredMessage="Field must not empty."/>
+
+                    <p:outputLabel value=""/>
+                    <p:commandButton value="Update" action="#{classBean.updateData()}" update=":inform:grl,:dtform:dt" style="font-size: 8pt;">
+                      <f:setPropertyActionListener target="#{classBean.className}" value="#{item.className}"/>
+                    </p:commandButton>
+                  </p:panelGrid>
+                </p:fieldset>
+              </p:rowExpansion>
+            </p:dataTable>
+          </h:form>
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

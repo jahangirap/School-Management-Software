@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+  <body>
+
+    <ui:composition template="./teacherTemplate.xhtml">
+
+      <ui:define name="title">
+        title
+      </ui:define>
+
+
+      <ui:define name="content">
+        <f:view>
+          <h:form id="pform">
+            <p:growl id="grl" showDetail="true"/>
+            <h:dataTable  value="#{displayTeacherInfoBean.profileInfo}" var="profile" cellpadding="15">
+              <h:column>
+                <h:panelGrid border="0" columns="2">
+                  <h:column>
+                    <h:graphicImage value="/DisplayTeacherPhoto?teacher_id=#{profile.teacherId}" width="120" height="140" style="border: 5px ridge #c2dfef"/>
+                  </h:column>
+                  <h:column>
+                    <h:panelGrid border="0" cellpadding="7" columns="2" columnClasses="pfcol,pscol">
+                      <p:outputLabel value="Teacher Name :"/>
+                      <p:outputLabel value="#{profile.teacherName}"/>
+
+                      <p:outputLabel value="Teacher Grade :"/>
+                      <p:outputLabel value="#{profile.teacherGrade}"/>
+
+                      <p:outputLabel value="Subject :"/>
+                      <p:outputLabel value="#{profile.subject}"/>
+                    </h:panelGrid>
+                  </h:column>
+                </h:panelGrid>
+
+                <h:panelGrid  cellpadding="7" columns="2" columnClasses="firstcolumn,centercolumn"
+                              rowClasses="pfrow,psrow" style="width: 800px;" headerClass="pgheader">
+                  <f:facet name="header">
+                    <p:outputLabel value="Detail Information"/>
+                  </f:facet>
+                  <p:outputLabel value="Teacher Name :"/>
+                  <p:outputLabel value="#{profile.teacherName}"/>
+
+                  <p:outputLabel value="Teacher Grade :"/>
+                  <p:outputLabel value="#{profile.teacherGrade}"/>
+
+                  <p:outputLabel value="Subject :"/>
+                  <p:outputLabel value="#{profile.subject}"/>
+
+                  <p:outputLabel value="Mobile :"/>
+                  <p:outputLabel value="#{profile.teacherMobile}"/>
+
+                  <p:outputLabel value="E-mail :"/>
+                  <p:outputLabel value="#{profile.teacherEmail}"/>
+
+                  <p:outputLabel value="Present Address :"/>
+                  <p:outputLabel value="#{profile.teacherAddress}"/>
+
+                  <p:outputLabel value="Join Date :"/>
+                  <p:outputLabel value="#{profile.teacherJoinDate}"/>
+
+                  <p:outputLabel value="Departure Date :"/>
+                  <p:outputLabel value="#{profile.departDate}"/>
+
+                  <p:outputLabel value="Username :"/>
+                  <p:outputLabel value="#{profile.userName}"/>
+                  <f:facet name="footer">
+                    <p:commandButton value="Change Password" action="#{userBean.doSetUname()}"
+                                     oncomplete="editdialog.show()"  icon="ui-icon-pencil" style="font-size: 8pt;">
+                      
+                    </p:commandButton>
+                  </f:facet>
+                </h:panelGrid>                
+              </h:column>
+
+            </h:dataTable>
+
+            <p:dialog id="dialog" widgetVar="editdialog" showEffect="clip" hideEffect="fold" resizable="false" header="Edit Password">
+              <p:panelGrid id="editpane"  columns="2">
+                
+                <p:outputLabel value="Old Password :"/>
+                <p:password value="#{userBean.oldPassword}" required="true" requiredMessage="please enter Old Password"/>
+
+                <p:outputLabel value="New Password :"/>
+                <p:password value="#{userBean.newPassword}" required="true" requiredMessage="please enter New Password"/>
+
+                <p:outputLabel value="Confirm Password :"/>
+                <p:password value="#{userBean.confirmPassword}" required="true" requiredMessage="please re-enter New Password"/>
+
+
+                <p:outputLabel value=""/>
+                <p:commandButton value="Update" action="#{userBean.updatePassword()}" 
+                                 oncomplete="editdialog.hide()" update=":pform:grl"/>
+              </p:panelGrid>
+            </p:dialog>
+          </h:form>
+        </f:view>
+      </ui:define>
+
+
+    </ui:composition>
+
+  </body>
+</html>

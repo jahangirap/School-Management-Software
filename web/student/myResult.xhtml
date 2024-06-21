@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+  <body>
+
+    <ui:composition template="./studentTemplate.xhtml">
+
+      <ui:define name="title">Student Result</ui:define>
+      
+      <ui:define name="right">
+
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form>
+            <p:fieldset legend="result">
+              <h:panelGrid columns="2" cellpadding="10">
+              <p:outputLabel value="ExamTitle : "/>
+              <p:selectOneMenu id="sec" value="#{marksBean.examId}" style="width: 150px;" effect="clip">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{marksBean.allExams}" var="exam" itemLabel="#{exam.examTitle}" itemValue="#{exam.examId}"/> 
+                <p:ajax event="change" update="mdt"/>
+              </p:selectOneMenu>
+              </h:panelGrid>
+            </p:fieldset>
+            <p:dataTable id="mdt" value="#{marksBean.myMarks}" var="item">
+              <p:column headerText="Subject">
+                #{item.subjectName}
+              </p:column>
+              <p:column headerText="Marks">
+                #{item.marksObtain}
+              </p:column>
+              <p:column headerText="Grade">
+                #{item.subjectGrade}
+              </p:column>
+            </p:dataTable>
+          </h:form>
+        </f:view>
+      </ui:define>
+    </ui:composition>
+
+  </body>
+</html>

@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Registration info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form enctype="multipart/form-data">
+            <p:panel id="all" style="font-size: 9pt;padding: 0;margin: 0;border: none;">
+              <p:growl showDetail="true" id="g"/>
+              <p:fieldset legend="Basic Information">
+                <h:panelGrid columns="3" cellpadding="7" columnClasses="firstcolumn,centercolumn,thirdcolumn" style="margin: 0 auto;">
+                  <p:outputLabel value="Student Name :"/>
+                  <p:inputText value="#{newStudentBean.studentName}" id="stname" required="true" requiredMessage="please enter Student Name"/>
+                  <p:message for="stname"/>
+
+                  <p:outputLabel value="Father Name :"/>
+                  <p:inputText value="#{newStudentBean.fatherName}" id="faname" required="true" requiredMessage="please enter Father Name"/>
+                  <p:message for="faname"/>
+
+                  <p:outputLabel value="Mother Name :"/>
+                  <p:inputText value="#{newStudentBean.motherName}" id="moname" required="true" requiredMessage="please enter Mother Name"/>
+                  <p:message for="moname"/>
+
+                  <p:outputLabel value="Date of Birth :"/>
+                  <p:calendar value="#{newStudentBean.dateOfBirth}" id="dob" required="true" requiredMessage="please enter Date of Birth"/>
+                  <p:message for="dob"/>
+
+                  <p:outputLabel value="Age (as 01-01-2013) :"/>
+                  <p:inputText value="#{newStudentBean.age}" id="age" required="true" requiredMessage="please enter age"/>
+                  <p:message for="age"/>
+
+                  <p:outputLabel value="Gender :"/>
+                  <p:selectOneRadio value="#{newStudentBean.gender}" id="gen" style="border: #ffffff;" required="true" requiredMessage="please select gender">
+                    <f:selectItem itemLabel="Male" itemValue="Male"/>
+                    <f:selectItem itemLabel="Female" itemValue="Female"/>
+                  </p:selectOneRadio>
+                  <p:message for="gen"/>                  
+                  
+                  <p:outputLabel value="Photo :"/>
+                  <p:fileUpload value="#{newStudentBean.photo}" mode="simple" id="photo" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" required="true" requiredMessage="Please select photo"/>
+                  <p:message for="photo"/>
+                </h:panelGrid>
+              </p:fieldset>
+              <br/>
+              <p:fieldset legend="Contact Information">
+                <h:panelGrid columns="3" columnClasses="firstcolumn,centercolumn,thirdcolumn" cellpadding="7" style="margin: 0 auto;">
+                  <p:outputLabel value="Telephone NO. :"/>
+                  <p:inputText value="#{newStudentBean.telephoneNo}" id="tel"/>
+                  <p:message for="tel"/>
+
+                  <p:outputLabel value="Mobile No. :"/>
+                  <p:inputText value="#{newStudentBean.mobileNo}" id="mob"/>
+                  <p:message for="mob"/>
+
+                  <p:outputLabel value="Present Address :"/>
+                  <p:inputTextarea value="#{newStudentBean.presentAddress}" id="preadd" required="true" requiredMessage="please enter Present Address"/>
+                  <p:message for="preadd"/>
+
+                  <p:outputLabel value="Parmanent Address :"/>
+                  <p:inputTextarea value="#{newStudentBean.parmanetAddress}" id="paradd" required="true" requiredMessage="please enter Parmanent Address"/>
+                  <p:message for="paradd"/>
+                </h:panelGrid>
+              </p:fieldset>
+              <br/>
+              <p:fieldset legend="Academic Information">
+                <h:panelGrid columns="3" columnClasses="firstcolumn,centercolumn,thirdcolumn" cellpadding="7" style="margin: 0 auto;">
+                  <p:outputLabel value="Academic Year :" />
+                  <p:selectOneMenu id="acy" value="#{newStudentBean.academicYearId}" required="true" requiredMessage="Please select academic year" style="width: 145px">
+                    <f:selectItem itemLabel="--Select--" itemValue=""/>
+                    <f:selectItems value="#{newStudentBean.allAcademicYear}" var="acyy" itemLabel="#{acyy.academicYear}" itemValue="#{acyy.academicYearId}"/>                           
+                    <p:ajax event="change" update="secc"/>
+                  </p:selectOneMenu>
+                  <p:message for="acy"/>
+
+                  <p:outputLabel value="Class Name :" />
+                  <p:selectOneMenu id="clas" value="#{newStudentBean.classId}" required="true" requiredMessage="Please select class" style="width: 145px">
+                    <f:selectItem itemLabel="--Select--" itemValue=""/>
+                    <f:selectItems value="#{newStudentBean.allClass}" var="classes" itemLabel="#{classes.className}" itemValue="#{classes.classId}"/>
+                    <p:ajax event="change" update="secc"/>
+                  </p:selectOneMenu>
+                  <p:message for="clas"/>
+
+                  <p:outputLabel id="dd" value="Section Name :" />
+                  <p:selectOneMenu id="secc" value="#{newStudentBean.sectionId}" required="true" requiredMessage="Please select section" style="width: 145px">
+                    <f:selectItem itemLabel="--Select--" itemValue=""/>
+                    <f:selectItems value="#{newStudentBean.allSection}" var="section" itemLabel="#{section.sectionName}" itemValue="#{section.sectionId}"/>                           
+                  </p:selectOneMenu>
+                  <p:message for="secc"/>
+
+                  <p:outputLabel value="Group Name :" />
+                  <p:selectOneMenu id="grp" value="#{newStudentBean.groupId}" required="true" requiredMessage="Please select group" style="width: 145px">
+                    <f:selectItem itemLabel="--Select--" itemValue=""/>
+                    <f:selectItems value="#{newStudentBean.allGroup}" var="group" itemLabel="#{group.groupName}" itemValue="#{group.groupId}"/>                           
+                  </p:selectOneMenu>
+                  <p:message for="grp"/>
+
+                  <p:outputLabel value="Student Roll :"/>
+                  <p:inputText value="#{newStudentBean.studentRollNo}" id="roll" required="true" requiredMessage="please enter your Roll Number"/>
+                  <p:message for="roll"/>
+                </h:panelGrid>
+              </p:fieldset>
+              <br/>
+              <p:fieldset legend="Others Information">
+                <h:panelGrid columns="3" columnClasses="firstcolumn,centercolumn,thirdcolumn" cellpadding="7" style="margin: 0 auto;">
+
+                  <p:outputLabel value="Registration Date :"/>
+                  <p:calendar id="regd"  value="#{newStudentBean.registrationDate}" pattern="dd/MM/yyyy"  required="true" requiredMessage="Please enter Reg Date"/>
+                  <p:message for="regd"/>
+
+                  <p:outputLabel value="Registation Fee :"/>
+                  <p:inputText id="regfee" value="#{newStudentBean.feeAmount}" required="true" requiredMessage="Please enter Fee Amount"/>
+                  <p:message for="regfee"/>
+
+                  <p:outputLabel value="Pay Date :"/>
+                  <p:calendar id="payd"  value="#{newStudentBean.payDate}"  pattern="dd/MM/yyyy"  required="true" requiredMessage="Please enter Pay Date"/>                   
+                  <p:message for="payd"/>
+
+                  <p:outputLabel value="User Type :" />
+                  <p:selectOneMenu id="ut" value="#{newStudentBean.roleId}" required="true" requiredMessage="Please select Role Name" style="width: 145px">
+                    <f:selectItem itemLabel="--Select--" itemValue=""/>
+                    <f:selectItems value="#{newStudentBean.allUserType}" var="utype" itemLabel="#{utype.roleName}" itemValue="#{utype.roleId}"/>                           
+                  </p:selectOneMenu>
+                  <p:message for="ut"/>
+
+                  <p:outputLabel value="User Name :"/>
+                  <p:inputText id="unn" value="#{newStudentBean.userName}" required="true" requiredMessage="please enter User Name" style="color: palevioletred"/>
+                  <p:message for="unn"/>
+
+                  <p:outputLabel value="Password :"/>
+                  <p:password id="psss" value="#{newStudentBean.newPassword}" required="true" requiredMessage="please enter password" style="color: peru"/>
+                  <p:message for="psss"/>
+
+                  <p:outputLabel value="Confirm Password :"/>
+                  <p:password id="cpsss" value="#{newStudentBean.confirmPassword}" required="true" requiredMessage="please enter password" style="color: peru"/>
+                  <p:message for="cpsss"/>
+
+                </h:panelGrid>
+              </p:fieldset>
+              <h:panelGrid columns="1" style="margin: 0 auto;">
+                <p:commandButton value="submit" action="#{newStudentBean.doInsert()}" update="all,g" ajax="false"/>
+              </h:panelGrid>
+            </p:panel>
+          </h:form>
+        </f:view>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="title">
+                School Management - Admin - Registration info
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form enctype="multipart/form-data">
+                        <p:panel id="all" style="font-size: 9pt;">
+                            <p:growl showDetail="true" id="g"/>
+                            <p:fieldset legend="Basic Information">
+                                <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">
+                                    <p:outputLabel value="Student Name :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.studentName}" id="stname" required="true" requiredMessage="please enter Student Name"/>
+                                    <p:message for="stname"/>
+
+                                    <p:outputLabel value="Father Name :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.fatherName}" id="faname" required="true" requiredMessage="please enter Father Name"/>
+                                    <p:message for="faname"/>
+
+                                    <p:outputLabel value="Mother Name :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.motherName}" id="moname" required="true" requiredMessage="please enter Mother Name"/>
+                                    <p:message for="moname"/>
+
+                                    <p:outputLabel value="Date of Birth :"/>
+                                    <p:calendar value="#{displayAllStudentInfoBean.dateOfBirth}" id="dob" pattern="dd/MM/yyyy"/>
+                                    <p:message for="dob"/>
+
+                                    <p:outputLabel value="Age (as 01-01-2013) :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.age}" id="age" required="true" requiredMessage="please enter age" />
+                                    <p:message for="age"/>
+
+                                    <p:outputLabel value="Gender :"/>
+                                    <p:selectOneRadio value="#{displayAllStudentInfoBean.gender}" id="gen" style="border: #ffffff;" required="true" requiredMessage="please select gender">
+                                        <f:selectItem itemLabel="Male" itemValue="Male"/>
+                                        <f:selectItem itemLabel="Female" itemValue="Female"/>
+                                    </p:selectOneRadio>
+                                    <p:message for="gen"/>  
+
+                                    <p:outputLabel value=""/>                                   
+                                    <p:commandButton value="Update" action="#{displayAllStudentInfoBean.updateBasicInfo()}" ajax="false"/> 
+
+
+                                </h:panelGrid>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Contact Information">
+                                <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">
+                                    <p:outputLabel value="Telephone NO. :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.telephoneNo}" id="tel"/>
+                                    <p:message for="tel"/>
+
+                                    <p:outputLabel value="Mobile No. :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.mobileNo}" id="mob"/>
+                                    <p:message for="mob"/>
+
+                                    <p:outputLabel value="Present Address :"/>
+                                    <p:inputTextarea value="#{displayAllStudentInfoBean.presentAddress}" id="preadd" required="true" requiredMessage="please enter your Roll Number"/>
+                                    <p:message for="preadd"/>
+
+                                    <p:outputLabel value="Parmanent Address :"/>
+                                    <p:inputTextarea value="#{displayAllStudentInfoBean.parmanetAddress}" id="paradd" required="true" requiredMessage="please enter your Roll Number"/>
+                                    <p:message for="paradd"/>
+
+                                    <p:outputLabel value=""/>
+                                    <h:panelGrid columns="1" style="margin: 0 auto;">
+                                        <p:commandButton value="Update" action="#{displayAllStudentInfoBean.updateContactInfo()}" ajax="false"/> 
+                                    </h:panelGrid>  
+                                </h:panelGrid>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Academic Information">                                
+                                <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">
+                                    <p:outputLabel value="Academic Year :" />
+                                    <p:selectOneMenu id="acy" value="#{displayAllStudentInfoBean.academicYear}"  style="width: 150px">
+                                        <f:selectItem itemLabel="--Select--" itemValue=""/>
+                                        <f:selectItems value="#{displayAllStudentInfoBean.allAcademicYear}" var="acyy" itemLabel="#{acyy.academicYear}" itemValue="#{acyy.academicYear}"/>                           
+                                        <p:ajax event="change" update="secc"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="acy"/>
+
+                                    <p:outputLabel value="Class Name :" />
+                                    <p:selectOneMenu id="clas" value="#{displayAllStudentInfoBean.className}" style="width: 150px">
+                                        <f:selectItem itemLabel="--Select--" itemValue=""/>
+                                        <f:selectItems value="#{displayAllStudentInfoBean.allClass}" var="classes" itemLabel="#{classes.className}" itemValue="#{classes.className}"/>
+                                        <p:ajax event="change" update="secc"/>
+                                    </p:selectOneMenu>
+                                    <p:message for="clas"/>
+
+                                    <p:outputLabel id="dd" value="Section Name :" />
+                                    <p:selectOneMenu id="secc" value="#{displayAllStudentInfoBean.sectionName}"  style="width: 150px">
+                                        <f:selectItem itemLabel="--Select--" itemValue=""/>
+                                        <f:selectItems value="#{displayAllStudentInfoBean.allSection}" var="section" itemLabel="#{section.sectionName}" itemValue="#{section.sectionName}"/>                           
+                                    </p:selectOneMenu>
+                                    <p:message for="secc"/>
+
+                                    <p:outputLabel value="Group Name :" />
+                                    <p:selectOneMenu id="grp" value="#{displayAllStudentInfoBean.groupName}"  style="width: 150px">
+                                        <f:selectItem itemLabel="--Select--" itemValue=""/>
+                                        <f:selectItems value="#{displayAllStudentInfoBean.allGroup}" var="group" itemLabel="#{group.groupName}" itemValue="#{group.groupName}"/>                           
+                                    </p:selectOneMenu>
+                                    <p:message for="grp"/>
+
+                                    <p:outputLabel value="Student Roll :"/>
+                                    <p:inputText value="#{displayAllStudentInfoBean.studentRollNo}" id="roll" />
+                                    <p:message for="roll"/>
+
+                                    <p:outputLabel value="Registration Date :"/>
+                                    <p:calendar id="regd"  value="#{displayAllStudentInfoBean.registrationDate}" pattern="dd/MM/yyyy"  required="true" requiredMessage="Please enter Reg Date"/>
+                                    <p:message for="regd"/>
+
+                                    <p:outputLabel value=""/>
+                                    <h:panelGrid columns="1" style="margin: 0 auto;">
+                                        <p:commandButton value="Update" action="#{displayAllStudentInfoBean.updateAcademicInfo()}" ajax="false"/> 
+                                    </h:panelGrid>  
+                                </h:panelGrid>
+                            </p:fieldset>
+                            <br/>
+                            <p:fieldset legend="Others Information">
+                                <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">                                
+
+                                    <p:outputLabel value="Registation Fee :"/>
+                                    <p:inputText id="regfee" value="#{displayAllStudentInfoBean.feeAmount}" required="true" requiredMessage="Please enter Fee Amount"/>
+                                    <p:message for="regfee"/>
+
+                                    <p:outputLabel value="Pay Date :"/>
+                                    <p:calendar id="payd"  value="#{displayAllStudentInfoBean.payDate}"  pattern="dd/MM/yyyy"  required="true" requiredMessage="Please enter Pay Date"/>                   
+                                    <p:message for="payd"/>                                   
+
+                                    <p:outputLabel value=""/>
+                                    <h:panelGrid columns="1" style="margin: 0 auto;">
+                                        <p:commandButton value="Update" action="#{displayAllStudentInfoBean.updateFeeInfo()}" ajax="false"/>                                                                
+                                    </h:panelGrid>  
+
+                                </h:panelGrid>
+                            </p:fieldset>
+                            
+                             <br/>
+                             <p:fieldset legend="User Information">
+                                 <h:panelGrid columns="3" cellpadding="7" style="margin: 0 auto;">                                     
+                                      <p:outputLabel value="User Name :"/>
+                                    <p:inputText id="unn" value="#{displayAllStudentInfoBean.userName}" required="true" requiredMessage="please enter User Name" style="color: palevioletred"/>
+                                    <p:message for="unn"/>          
+                                    
+                                    <p:outputLabel value=""/>
+                                    <h:panelGrid columns="1" style="margin: 0 auto;">
+                                        <p:commandButton value="Update" action="#{displayAllStudentInfoBean.updateUserInfo()}" ajax="false"/>                                                                
+                                    </h:panelGrid> 
+                                    
+                                 </h:panelGrid>
+                             </p:fieldset>
+                        </p:panel>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

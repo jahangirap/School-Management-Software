@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="title">
+                School Management - Admin - Teacher Grade info
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form  id="inform">
+                        <p:growl id="grl" showDetail="true"/>
+                        <p:fieldset legend="Add Teacher Grade" style="font-size: 9pt">
+                            <p:panelGrid columns="2">
+                                <p:column>
+                                    <p:outputLabel value="Teacher Grade"/><br/>
+                                    <p:inputText value="#{teacherGradeBean.teacherGrade}"/>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Save" action="#{teacherGradeBean.insertGrade()}" update=":inform:grl,:dtform:dt" icon="ui-icon-disk"/>
+                                </p:column>
+                            </p:panelGrid>
+                        </p:fieldset>
+                        </h:form>
+                            
+                        <h:form id="dtform">
+                        <p:dataTable id="dt" value="#{teacherGradeBean.allGradeName}" var="item" style="font-size: 9pt">
+                            <p:column>
+                                <f:facet name="header">Grade Name</f:facet>
+                                #{item.teacherGrade}
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">Edit</f:facet>
+                                <p:rowToggler/>
+                            </p:column>
+                            <p:column>                                
+                                <p:commandButton value="Delete" action="#{teacherGradeBean.deleteTeacherGrade()}" update=":inform:grl,:dtform:dt" icon="ui-icon-close">
+                                    <f:setPropertyActionListener target="#{teacherGradeBean}" value="#{item}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:rowExpansion>
+                                <p:fieldset legend="Edit Academic Year" id="up">
+                                    <p:panelGrid columns="2" style="width: 400px;">
+                                        <p:outputLabel value="Old Academic Year :" style="text-align: right;"/>
+                                        <p:outputLabel value="#{item.teacherGrade}"/>
+
+                                        <p:outputLabel value="New Academic Year :"/>
+                                        <p:inputText value="#{teacherGradeBean.newTeacherGrade}" required="true" requiredMessage="Field must not empty."/>
+
+                                        <p:outputLabel value=""/>
+                                        <p:commandButton value="Update" action="#{teacherGradeBean.updateTGrade()}" update=":inform:grl,:dtform:dt" style="font-size: 8pt;">
+                                            <f:setPropertyActionListener target="#{teacherGradeBean.teacherGrade}" value="#{item.teacherGrade}"/>
+                                        </p:commandButton>
+                                    </p:panelGrid>
+                                </p:fieldset>
+                            </p:rowExpansion>
+                        </p:dataTable>
+
+                    </h:form>
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

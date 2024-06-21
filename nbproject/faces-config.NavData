@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="admin/marks.xhtml" x="1150" y="450" zoom="true"/>
+        <Node id="public/publicClassRoutine.xhtml" x="1900" y="150" zoom="true"/>
+        <Node id="about.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="admin/editStudent.xhtml" x="1150" y="600" zoom="true"/>
+        <Node id="admin/registration.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="teacher/teacherTemplate.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="admin/group.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="myTemplate.xhtml" x="400" y="900" zoom="true"/>
+        <Node id="admin/adminPanel.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="public/publicNotice.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="admin/updateTeacherInfo.xhtml" x="900" y="750" zoom="true"/>
+        <Node id="student/myResult.xhtml" x="2400" y="150" zoom="true"/>
+        <Node id="admin/teacherSubjectAssign.xhtml" x="1150" y="300" zoom="true"/>
+        <Node id="public/*" x="1900" y="300" zoom="true"/>
+        <Node id="teacher/teacherHome.xhtml" x="2150" y="150" zoom="true"/>
+        <Node id="admin/class.xhtml" x="150" y="900" zoom="true"/>
+        <Node id="gardian/gardianTemplate.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="admin/subject.xhtml" x="900" y="450" zoom="true"/>
+        <Node id="*" x="1650" y="600" zoom="true"/>
+        <Node id="teacher/marksUpdate.xhtml" x="150" y="1200" zoom="true"/>
+        <Node id="admin/home.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="admin/newTemplate.xhtml" x="650" y="750" zoom="true"/>
+        <Node id="admin/student.xhtml" x="400" y="750" zoom="true"/>
+        <Node id="student/*" x="1400" y="600" zoom="true"/>
+        <Node id="admin/notice.xhtml" x="650" y="600" zoom="true"/>
+        <Node id="public/publicTemplate.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="admin/classRoutine.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="admin/*" x="650" y="900" zoom="true"/>
+        <Node id="admin/teacherRegistration.xhtml" x="1400" y="450" zoom="true"/>
+        <Node id="teacher/teacherProfileUpdate.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="teacher/addmarks.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="teacher/*" x="1650" y="450" zoom="true"/>
+        <Node id="student/studentProfileUpdate.xhtml" x="900" y="900" zoom="true"/>
+        <Node id="admin/attend.xhtml" x="1150" y="150" zoom="true"/>
+        <Node id="student/studentHome.xhtml" x="400" y="1200" zoom="true"/>
+        <Node id="admin/adminTemplate.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="public/contactus.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="admin/exam.xhtml" x="1400" y="300" zoom="true"/>
+        <Node id="public/publicResult.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="admin/teacher.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="admin/section.xhtml" x="400" y="600" zoom="true"/>
+        <Node id="login.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="student/studentTemplate.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="teacher/teacherProfile.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="admin/acyear.xhtml" x="900" y="300" zoom="true"/>
+        <Node id="student/studentProfile.xhtml" x="650" y="1050" zoom="true"/>
+        <Node id="public/publicTeacher.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="admin/period.xhtml" x="1400" y="150" zoom="true"/>
+        <Node id="admin/teacherGrade.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="student/myAttendence.xhtml" x="2150" y="300" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

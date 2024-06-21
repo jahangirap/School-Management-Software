@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="title">
+                School Management - Admin - Subject assign to Teacher info
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                <h:form id="addform">
+                  <p:growl id="grl" showDetail="true"/>
+                  <p:fieldset legend="Assign New Subject" style="font-size: 9pt;margin-bottom: 3px;">
+                    <p:panelGrid id="pg" columns="5">
+                      <p:column>
+                        <p:outputLabel value="Teacher Name :"/><br/>
+                        <p:selectOneMenu value="#{teacherSubjectAssignBean.teacherId}" required="true" requiredMessage="Please Select Teacher">
+                          <f:selectItem itemLabel="select teacher" itemValue=""/>
+                          <f:selectItems value="#{teacherSubjectAssignBean.allTeacherName}" var="teacher" itemLabel="#{teacher.teacherName}" itemValue="#{teacher.teacherId}"/>
+                        </p:selectOneMenu>
+                      </p:column>
+                      <p:column>
+                        <p:outputLabel value="Subject Name :"/><br/>
+                        <p:selectOneMenu value="#{teacherSubjectAssignBean.subjectId}" required="true" requiredMessage="Please Select Subject">
+                          <f:selectItem itemLabel="select Subject" itemValue=""/>
+                          <f:selectItems value="#{teacherSubjectAssignBean.allSubjectName}" var="subject" itemLabel="#{subject.subject}" itemValue="#{subject.subjectId}"/>
+                        </p:selectOneMenu>
+                      </p:column>
+                      <p:column>
+                        <p:outputLabel value="Class :"/><br/>
+                        <p:selectOneMenu value="#{teacherSubjectAssignBean.classId}" required="true" requiredMessage="Please Select Class">
+                          <f:selectItem itemLabel="select Class" itemValue=""/>
+                          <f:selectItems value="#{teacherSubjectAssignBean.allClassName}" var="classs" itemLabel="#{classs.className}" itemValue="#{classs.classId}"/>
+                          <p:ajax event="change" update="sec"/>
+                        </p:selectOneMenu>
+                      </p:column>
+                      <p:column>
+                        <p:outputLabel value="Section :"/><br/>
+                        <p:selectOneMenu id="sec" value="#{teacherSubjectAssignBean.sectionId}" required="true" requiredMessage="Please Select Section">
+                          <f:selectItem itemLabel="select Section" itemValue=""/>
+                          <f:selectItems value="#{teacherSubjectAssignBean.allSectionName}" var="section" itemLabel="#{section.sectionName}" itemValue="#{section.sectionId}"/>
+                        </p:selectOneMenu>
+                      </p:column>
+                      <p:column>
+                        <p:outputLabel value=""/><br/>
+                        <p:commandButton value="Save" action="#{teacherSubjectAssignBean.insertData()}" update=":addform:grl,:addform:pg,:dtform:dt" icon="ui-icon-disk"/>
+                      </p:column>
+                    </p:panelGrid>
+                  </p:fieldset>
+                </h:form>                
+              
+                <h:form id="dtform">
+                  <p:dataTable id="dt" value="#{teacherSubjectAssignBean.allData}" var="item" style="font-size: 9pt;">
+                    <p:column headerText="Teacher">
+                      #{item.teacherName}
+                    </p:column>
+                    <p:column headerText="Class">
+                      #{item.className}
+                    </p:column>
+                    <p:column headerText="Section">
+                      #{item.sectionName}
+                    </p:column>                    
+                    <p:column headerText="Subject">
+                      #{item.subject}
+                    </p:column>
+                  </p:dataTable>
+                </h:form>
+              </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

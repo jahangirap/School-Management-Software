@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Notice info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form enctype="multipart/form-data">
+            <p:growl autoUpdate="true"/>
+            <p:fieldset legend="Add Notice" toggleable="true" collapsed="true" style="font-size: 9pt">
+              <p:panelGrid columns="3">
+                <p:column>
+                  <p:outputLabel value="Notice title :"/><br/>
+                  <p:inputText id="nt" value="#{noticeBean.noticeTitle}" required="true" requiredMessage="Enter Title for Notice"/>
+                  <p:watermark value="Enter Title" for="nt"/>
+                  <br/><br/>
+                  <p:outputLabel value="Publish Date :"/><br/>
+                  <p:calendar value="#{noticeBean.publishDate}" navigator="true"  required="true" requiredMessage="Enter Publish Date"/>                  
+                  <br/><br/>
+                  <p:outputLabel value="Expire Date :"/><br/>
+                  <p:calendar value="#{noticeBean.validateDate}" navigator="true"  required="true" requiredMessage="Enter Expire Date"/>
+                  <br/><br/>
+                  <p:outputLabel value="Notice Image :"/><br/>
+                  <p:fileUpload value="#{noticeBean.noticeIamge}" mode="simple" id="photo" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" style="width: 200px;"/>
+                </p:column>
+                <p:column>
+                  <p:outputLabel value="Notice :"/><br/>
+                  <p:inputTextarea value="#{noticeBean.notice}" rows="7" cols="70" style="font-size: 10pt;"  required="true" requiredMessage="Enter Notice"/><br/>
+
+                  <p:commandButton value="Save" action="#{noticeBean.insertNotice()}" ajax="false" update="addNotice"/>
+                </p:column>
+              </p:panelGrid>
+            </p:fieldset>
+
+            <p:dataTable id="addNotice" value="#{noticeBean.allNotice}" var="item" style="font-size: 9pt;">
+              <p:column>
+                <f:facet name="header">Notice Title</f:facet>
+                #{item.noticeTitle}
+              </p:column>
+              
+              <p:column>
+                <f:facet name="header">Notice Image</f:facet>
+                <p:graphicImage value="../DisplayNoticeImage?noti_id=#{item.noticeId}" width="50" height="60"/>
+              </p:column>
+              <p:column>
+                <f:facet name="header">Validate Date</f:facet>
+                #{item.publishDate}
+              </p:column>
+              <p:column>
+                <f:facet name="header">Validate Date</f:facet>
+                #{item.validateDate}
+              </p:column>
+              <p:column>
+                <f:facet name="header">Details</f:facet>
+                <p:rowToggler/>
+              </p:column>
+              <p:column headerText="Option">                
+                  <p:commandButton value="Edit" icon="ui-icon-pencil" style="font-size: 7pt;"/>
+                  <p:spacer width="3px"/>                        
+                  <p:commandButton value="Delete" icon="ui-icon-close" update="addNotice" style="font-size: 7pt;color: red;"/>                
+              </p:column>
+              <p:rowExpansion>
+                <div style="height: 285px;">
+                  <div style="text-align: center;border: none;" class="pgheader">
+                    <div style="float: right;font-size: 7pt;">
+                      <h:form>
+                        <p:spacer height="25"/><br/>
+                        <p:commandButton value="Print" icon="ui-icon-print"></p:commandButton>
+                        <p:commandButton value="PDF" icon="ui-icon-document"></p:commandButton>
+                      </h:form>
+                    </div>
+                    <div style="text-align: center;">
+                      <h4 style="padding: 0;margin: 0;">
+                        Nikli Gorachad Pilot High School
+                      </h4>                   
+                      Nikli, Kishoreganj
+                      <h1 style="color: black;font-size: 9pt;font-weight: normal;">
+                        Nikli, Kishoreganj
+                      </h1>                    
+                    </div>
+                  </div>
+                  <div style="padding: 10px;">
+                    <h4>#{item.noticeTitle}</h4>
+                    <p:inputTextarea value="#{item.notice}" cols="120" rows="10" readonly="true" style="text-align: justify;text-indent: 15px;">                      
+                    </p:inputTextarea>
+                  </div>
+                </div>
+              </p:rowExpansion>
+            </p:dataTable>
+          </h:form>
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

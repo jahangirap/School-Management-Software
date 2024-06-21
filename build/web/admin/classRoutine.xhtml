@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Class Routine info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form id="form1" >
+            <p:growl id="messages" showDetail="true"/>
+            <p:fieldset legend="Add Class Routine" style="float: left;width: 370px;">
+              <p:panelGrid columns="2">
+                <p:outputLabel value="Group Name :" />
+                <p:selectOneMenu id="group" value="#{classTimeTableBean.groupName}" style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.allGroup}" var="gad" itemLabel="#{gad.groupName}" itemValue="#{gad.groupName}"/>                                  
+                </p:selectOneMenu>                                
+
+                <p:outputLabel value="Class Name :" />
+                <p:selectOneMenu id="class" value="#{classTimeTableBean.className}" style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.allClass}" var="item" itemLabel="#{item.className}" itemValue="#{item.className}"/>                                 
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Section Name :" />
+                <p:selectOneMenu id="sec" value="#{classTimeTableBean.sectionName}"  style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.allSection}" var="item" itemLabel="#{item.sectionName}" itemValue="#{item.sectionName}"/>                                       
+                </p:selectOneMenu>
+
+              </p:panelGrid>
+            </p:fieldset>
+            <p:fieldset legend="Select this" style="float: right; width: 370px;">
+              <p:panelGrid columns="2">
+                <p:outputLabel value="Teacher Name :" />
+                <p:selectOneMenu id="teacher" value="#{classTimeTableBean.teacherName}"  style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.allTeacher}" var="teacher" itemLabel="#{teacher.teacherName}" itemValue="#{teacher.teacherName}"/>                                       
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Subject Name :" />
+                <p:selectOneMenu id="sub" value="#{classTimeTableBean.subjectName}"  style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.allSubject}" var="item" itemLabel="#{item.subjectName}" itemValue="#{item.subjectName}"/>                                       
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Period :" />
+                <p:selectOneMenu id="dp" value="#{classTimeTableBean.dptime}" style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.allDpTime}" var="item" itemLabel="#{item.dptime}" itemValue="#{item.dptime}"/>                                       
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Day :" />
+                <p:selectOneMenu id="day" value="#{classTimeTableBean.day}"  style="width: 150px">
+                  <f:selectItem itemLabel="--Select--" itemValue=""/>
+                  <f:selectItems value="#{classTimeTableBean.days}" var="item" itemLabel="#{item}" itemValue="#{item}"/>                                       
+                </p:selectOneMenu>
+
+                <f:facet name="footer">
+                  <h:commandButton value="Add Item" action="#{classTimeTableBean.addAction}" />
+                </f:facet>
+              </p:panelGrid>
+            </p:fieldset>
+            <br/>
+            <p:fieldset legend="List">
+              <p:dataTable value="#{classTimeTableBean.data}" var="item"  editable="true">
+
+                <p:ajax event="rowEdit" listener="#{classTimeTableBean.onEdit}" update=":form1:messages" /> 
+                <p:ajax event="rowEditCancel" listener="#{classTimeTableBean.onCancel}" update=":form1:messages" />
+
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Group Name" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.groupName}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.groupName}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Class Name" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.className}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.className}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Section Name" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.sectionName}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.sectionName}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Teacher Name" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.teacherName}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.teacherName}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Subject Name" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.subjectName}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.subjectName}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Period" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.dptime}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.dptime}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+
+                <p:column>
+                  <f:facet name="header"> 
+                    <h:outputText value="Day" /> 
+                  </f:facet>
+                  <p:cellEditor>                                
+                    <f:facet name="output"> 
+                      <h:outputLabel value="#{item.day}"/>
+                    </f:facet>
+
+                    <f:facet name="input"> 
+                      <h:outputLabel value="#{item.day}"/>
+                    </f:facet>
+                  </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Options" > 
+                  <p:rowEditor /> 
+                </p:column>
+                <f:facet name="footer">
+                  <p:commandButton value="Save" action="#{classTimeTableBean.saveItem()}"/>
+                </f:facet>
+
+              </p:dataTable>
+            </p:fieldset>
+
+          </h:form>
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

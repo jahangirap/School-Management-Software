@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <body>
+
+    <ui:composition template="./myTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - login
+      </ui:define>
+
+
+      <ui:define name="left">
+        left
+      </ui:define>
+
+      <ui:define name="right">
+        right
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form>
+            <p:growl id="warn" showDetail="true"/>
+            <p:fieldset legend="Log in" style="margin: 0 auto;width: 400px;">
+              <h:panelGrid columns="3" cellpadding="10" id="pgg">
+
+                <p:outputLabel value="Username :"/>
+                <p:inputText value="#{loginBean.userName}" id="unam"/>
+                <p:message for="unam"/>
+
+                <p:outputLabel value="Password :"/>
+                <p:password value="#{loginBean.password}" id="pss"/>
+                <p:message for="pss"/>   
+
+                <p:outputLabel value=""/>
+                <p:commandButton value="log in" action="#{loginBean.doLogin}" update="warn, pgg" style="margin: 0 auto;font-size: 9pt;"/>
+              </h:panelGrid>
+            </p:fieldset>
+          </h:form>
+        </f:view>
+      </ui:define>     
+    </ui:composition>
+
+  </body>
+</html>

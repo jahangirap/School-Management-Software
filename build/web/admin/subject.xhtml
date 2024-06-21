@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Subject info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form id="addform">
+            <p:growl id="grl" autoUpdate="false" showDetail="true"/>
+            <p:fieldset legend="Add Subject" style="font-size: 9pt">
+              <p:panelGrid columns="3">
+                <p:column>
+                  <h:outputLabel value="Subject Code" /><br/>
+                  <p:inputText value="#{subjectBean.subjectCode}"/>  
+                </p:column>
+                <p:column>
+                  <h:outputLabel value="Subject Name" /><br/>
+                  <p:inputText value="#{subjectBean.subjectName}"/>
+                </p:column>
+                <p:column>
+                  <p:commandButton value="Save" action="#{subjectBean.insertSubject()}" update=":addform:grl,:dtform:dtt" icon="ui-icon-disk"/>
+                </p:column>
+              </p:panelGrid>
+            </p:fieldset>
+          </h:form>
+          <h:form id="dtform">
+            <p:dataTable id="dtt" value="#{subjectBean.allSubjectName}" var="item" style="font-size: 9pt">
+              <p:column headerText="Subject Name">                        
+                #{item.subjectName}
+              </p:column>
+              <p:column headerText="Subject Code">
+                <p:outputLabel value="Subject Code"/>
+                #{item.subjectCode}
+              </p:column>
+
+              <p:column headerText="Option" style="width: 100px;">
+                <p:commandButton value="Edit" action="#{subjectUpdate.doSetSelectedRow()}"
+                                 oncomplete="editdialog.show()" update=":dtform:editpane" icon="ui-icon-pencil" style="font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{subjectUpdate.selectedRow}" value="#{item}"/>
+                </p:commandButton>                                       
+                <p:spacer width="3px"/>
+                <p:commandButton value="Delete" action="#{subjectBean.deleteSubjectName()}" update=":addform:grl,:dtform:dtt" icon="ui-icon-close" style="color: #D20005;font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{subjectBean}" value="#{item}"/>
+                </p:commandButton>                       
+              </p:column>
+            </p:dataTable>
+            <p:dialog id="dialog" widgetVar="editdialog" showEffect="clip" hideEffect="fold" resizable="false" header="Edit Subject">
+              <p:panelGrid id="editpane"  columns="2">
+                <p:outputLabel value="Old Subject Code :"/>
+                <p:inputText value="#{subjectUpdate.subjectCode}" readonly="true"/>
+                
+                <p:outputLabel value="New Subject Code :"/>
+                <p:inputText value="#{subjectUpdate.newSubjectCode}"/>
+                
+                <p:outputLabel value="Subject Name :"/>
+                <p:inputText value="#{subjectUpdate.subjectName}"/>
+                                
+                <p:spacer/>
+                <p:commandButton value="Update" action="#{subjectUpdate.updateSubjectName()}" update=":addform:grl,:dtform:dtt" oncomplete="editdialog.hide()"/>
+              </p:panelGrid>
+
+            </p:dialog>
+          </h:form> 
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

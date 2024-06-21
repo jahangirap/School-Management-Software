@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+  <body>
+
+    <ui:composition template="./teacherTemplate.xhtml">
+
+      <ui:define name="title">title</ui:define>
+
+      <ui:define name="content">
+        <f:view>
+
+          <h:form id="addf">
+            
+            <p:fieldset legend="Marks Entry">
+              <h:panelGrid id="pg" columns="6" cellpadding="5" columnClasses="markscolone,markscoltwo,markscolthree,markscolone,markscoltwo,markscolthree">
+                <p:outputLabel value="Academic Year :"/>
+                <p:selectOneMenu id="inacy" value="#{marksBean.acyear}" style="width: 100px;" required="true" requiredMessage="Select year">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allAcademicYear}" itemLabel="#{acy.acyear}" itemValue="#{acy.acyear}" var="acy"/>
+                  <p:ajax event="change" update="insec"/>
+                </p:selectOneMenu>
+                <p:message for="inacy"/>
+
+                <p:outputLabel value="Exam :"/>
+                <p:selectOneMenu id="inex" value="#{marksBean.examTitle}" style="width: 100px;" required="true" requiredMessage="select Exam">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allExams}" itemLabel="#{exam.examTitle}" itemValue="#{exam.examTitle}" var="exam"/>
+                  
+                </p:selectOneMenu>
+                <p:message for="inex"/>
+
+                <p:outputLabel value="Class Name :"/>
+                <p:selectOneMenu id="incls" value="#{marksBean.className}" style="width: 100px;" required="true" requiredMessage="select class">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allClasses}" itemLabel="#{clas.className}" itemValue="#{clas.className}" var="clas"/>
+                  <p:ajax event="change" update="insec"/>
+                </p:selectOneMenu>
+                <p:message for="incls"/>
+
+                <p:outputLabel value="Student Roll No. :"/>
+                <p:selectOneMenu id="inroll" value="#{marksBean.studentRollNo}" style="width: 100px;" validator="#{marksBean.validateRoll}"  required="true" requiredMessage="select Roll">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allRollNos}" itemLabel="#{roll.label}" itemValue="#{roll.value}" var="roll"/>
+                </p:selectOneMenu>
+                <p:message for="inroll"/>
+
+                <p:outputLabel value="Section Name :"/>
+                <p:selectOneMenu id="insec" value="#{marksBean.sectionName}" style="width: 100px;"  required="true" requiredMessage="select section">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allSections}" itemLabel="#{section.sectionName}" itemValue="#{section.sectionName}" var="section"/>
+                  <p:ajax event="change" update="inroll"/>
+                </p:selectOneMenu>
+                <p:message for="insec"/>
+
+                <p:outputLabel value="Marks Obtain :"/>
+                <p:inputText id="inmb" value="#{marksBean.marksObtain}" required="true" requiredMessage="enter marks" style="width: 91px;">
+                  <p:ajax event="keyup" update="ingd" listener="#{marksBean.doSetGrade()}"/>
+                </p:inputText>
+                <p:message for="inmb"/>
+
+                <p:outputLabel value="Group :"/>
+                <p:selectOneMenu id="ingrp" value="#{marksBean.groupName}" style="width: 100px;" required="true" requiredMessage="select group">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allGroups}" itemLabel="#{group.groupName}" itemValue="#{group.groupName}" var="group"/>
+                  <p:ajax event="change" update="inroll"/>
+                </p:selectOneMenu>
+                <p:message for="ingrp"/>
+
+                <p:outputLabel value="Grade :"/>
+                <p:inputText id="ingd" value="#{marksBean.subjectGrade}" style="width: 91px;" readonly="true"/>
+                <p:message for="ingd"/>
+
+                <p:outputLabel value="Subject :"/>
+                <p:selectOneMenu id="insub" value="#{marksBean.subjectName}" style="width: 100px;"  required="true" requiredMessage="select subject">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allSubjects}" itemLabel="#{sub.subjectName}" itemValue="#{sub.subjectName}" var="sub"/>
+                </p:selectOneMenu>
+                <p:message for="insub"/>
+
+                <p:spacer/>
+                <p:commandButton value="Save" action="#{marksBean.addMarks()}" update=":addf:pg,:dtf:markstable,:dtf:grl" icon="ui-icon-disk"/>
+
+              </h:panelGrid>
+            </p:fieldset>
+          </h:form>
+          <h:form id="dtf">
+            <p:growl id="grl" showDetail="true"/>
+            <p:dataTable id="markstable" value="#{marksBean.allMarksInfo}" var="item">
+              <p:column headerText="Year">
+                #{item.acyear}
+              </p:column>
+
+              <p:column headerText="Class">
+                #{item.className}
+              </p:column>
+
+              <p:column headerText="Section">
+                #{item.sectionName}
+              </p:column>
+
+              <p:column headerText="Group">
+                #{item.groupName}
+              </p:column>
+
+              <p:column headerText="Subject">
+                #{item.subjectName}
+              </p:column>
+
+              <p:column headerText="Exam">
+                #{item.examTitle}
+              </p:column>
+
+              <p:column headerText="Roll No.">
+                #{item.studentRollNo}
+              </p:column>
+
+              <p:column headerText="Marks">
+                #{item.marksObtain}
+              </p:column>
+
+              <p:column headerText="Grade">
+                #{item.subjectGrade}
+              </p:column>
+
+              <p:column headerText="Option" width="100">
+                <p:commandButton value="Edit" action="#{marksBean.goUpdatePage()}" icon="ui-icon-pencil" style="font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{marksBean}" value="#{item}"/>
+                </p:commandButton>
+                <p:spacer width="5"/>
+                <p:commandButton value="Delete" action="#{marksBean.deleteData()}" icon="ui-icon-close" style="font-size: 7pt;color: red;">
+                  <f:setPropertyActionListener target="#{marksBean}" value="#{item}"/>
+                </p:commandButton>
+              </p:column>
+
+            </p:dataTable>
+          </h:form>
+        </f:view>
+
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+  <body>
+
+    <ui:composition template="./myTemplate.xhtml">
+
+
+
+      <ui:define name="right">
+        <f:view>
+          <h:form>
+            <p:growl id="warn" showDetail="true" autoUpdate="false" redisplay="false"/>
+            <center>
+              <h:outputLabel value="User Log In" style="font-size: 11pt;font-weight: bold;font-variant: small-caps;"/>
+            </center>            
+            <h:panelGrid columns="1" cellpadding="3" cellspacing="0" border="0" id="pgg">
+              <p:spacer height="10px;"/>
+              <p:outputLabel value="Username :"/>
+              <p:inputText value="#{loginBean.userName}" id="unam" required="true" requiredMessage="Please enter valid username" style="width: 122px;"/>                
+              <p:spacer height="3px;"/>
+              <p:outputLabel value="Password :"/>
+              <p:password value="#{loginBean.password}" id="pss" required="true" requiredMessage="Please enter valid password" style="width: 122px;"/>                   
+
+              <p:spacer height="7px;"/>
+              <p:commandButton value="log in" action="#{loginBean.doLogin}" update="warn, pgg" style="margin-left: 35px;font-size: 9pt;" disabled="#{loginBean.showLogout}"/>
+            </h:panelGrid>
+
+          </h:form>
+        </f:view>
+      </ui:define>
+
+      <ui:define name="content">
+
+        <p:galleria value="#{indexGaleria.images}" var="image" autoPlay="true" 
+                    effect="fade" effectSpeed="1500" panelHeight="250" panelWidth="687">
+          <p:graphicImage value="./resources/images/gelaria/#{image.image}" width="687" height="250" title="#{image.caption}"/>
+                  
+        </p:galleria>
+
+      </ui:define>          
+
+    </ui:composition>
+
+  </body>
+</html>

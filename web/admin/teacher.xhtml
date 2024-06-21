@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./adminTemplate.xhtml">
+
+            <ui:define name="title">
+                School Management - Admin - Teacher info
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        <p:dataTable value="#{displayTeacherInfoBean.allTeacherInfo}" var="item" 
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="3,5,10" widgetVar="50" style="width: 60px;" >
+                            
+                            <p:column headerText="Teacher Name" filterBy="#{item.teacherName}">           
+                                #{item.teacherName}
+                            </p:column>
+                            
+                            <p:column headerText="Mobile" filterBy="#{item.teacherMobile}">           
+                                #{item.teacherMobile}
+                            </p:column>
+                            
+                            <p:column headerText="Teacher Gade" filterBy="#{item.teacherGrade}">           
+                                #{item.teacherGrade}
+                            </p:column>
+                            
+                            <p:column headerText="Email" filterBy="#{item.teacherEmail}">           
+                                #{item.teacherEmail}
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">File photo</f:facet>
+                                <h:graphicImage value="/DisplayTeacherPhoto?teacher_id=#{item.teacherId}" width="50" height="60"/>
+                            </p:column>
+                            
+                            <p:column headerText="Show Details" style="text-align: center;width: 20px;">
+                                <p:rowToggler/>
+                            </p:column>
+                            
+                            <p:column>
+                                <f:facet name="header">Edit</f:facet>
+                                <p:commandLink value="Edit" action="#{displayTeacherInfoBean.goEditPage()}">
+                                    <f:setPropertyActionListener target="#{displayTeacherInfoBean}" value="#{item}"/>
+                                </p:commandLink>
+                            </p:column>
+                            
+                            <p:rowExpansion>
+                                <p:fieldset>
+                                    <p:panelGrid columns="2" style="width: 400px;">
+                                        <p:outputLabel value="Teacher Name :"/>
+                                        <p:outputLabel value="#{item.teacherName}"/>
+                                        
+                                        <p:outputLabel value="Subject Name"/>
+                                        <p:outputLabel value="#{item.subject}"/>
+                                        
+                                        <p:outputLabel value="Mobile :"/>
+                                        <p:outputLabel value="#{item.teacherMobile}"/>
+                                        
+                                        <p:outputLabel value="Present Address :"/>
+                                        <p:outputLabel value="#{item.teacherAddress}"/>
+                                        
+                                        <p:outputLabel value="Joining Date"/>
+                                        <p:outputLabel value="#{item.teacherJoinDate}"/>
+                                        
+                                        <p:outputLabel value="Grade Name"/>
+                                        <p:outputLabel value="#{item.teacherGrade}"/>
+                                        
+                                        <p:outputLabel value="Email :"/>
+                                        <p:outputLabel value="#{item.teacherEmail}"/>
+                                        
+                                        <p:outputLabel value="Departure Date"/>
+                                        <p:outputLabel value="#{item.departDate}"/>
+                                        
+                                        <p:outputLabel value="User Name"/>
+                                        <p:outputLabel value="#{item.userName}"/>
+                                        
+                                    </p:panelGrid>
+                                    
+                                </p:fieldset>
+                            </p:rowExpansion>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

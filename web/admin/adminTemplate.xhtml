@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+  <h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+    <h:outputStylesheet library="css" name="default.css"/>
+    <h:outputStylesheet library="css" name="cssLayout.css"/>       
+    <title>
+      <ui:insert name="title">School Management</ui:insert>
+    </title>
+  </h:head>
+
+  <h:body>
+    <div id="container">
+      <div id="top">
+        <ui:insert name="top">
+          <p:panel style="min-height: inherit; height: inherit;">            
+            <f:view>
+             
+              <p:outputPanel style="float: left;width: 150px;height: inherit;">
+                <center>
+                  <p:graphicImage value="./../resources/images/schoollogo1.jpg" width="85px" height="90px"/>
+                </center>               
+              </p:outputPanel>
+              
+              <p:outputPanel>
+
+                <p:panel rendered="#{loginBean.showLogout}" style="float: right; border: 0;">
+                  <f:view>
+                    <h:form>                      
+                      <p:outputLabel value="#{loginBean.roleName} : #{loginBean.name}"  styleClass="grbg"/>
+                      
+                      <p:commandLink value="log out" action="#{loginBean.logout()}" styleClass="loglink"/>
+                      
+                      <h:link value="My Home" outcome="#{loginBean.goMyHome()}" styleClass="loglink"/>
+                    </h:form>
+                  </f:view>
+                </p:panel>
+
+                <p:panel style="height: 60px; border: 0;padding: 0;color: #333300;">
+                  <p:outputLabel value="School Management"  styleClass="schname"/>
+                </p:panel>            
+
+                <p:panel style="margin: 0px 0px 0px 150px;padding: 0;border: 0;font-variant: normal;background: none;" styleClass="menu">              
+                  <li><h:link value="Home" outcome="../index.xhtml"/></li>
+                  <li><h:link value="Notice" outcome="../public/publicNotice.xhtml"/></li>
+                  <li><h:link value="Result" outcome="./../public/publicResult.xhtml"/></li>
+                  <li><h:link value="About us" outcome="../about.xhtml"/></li>            
+                  <li><h:link value="Contact us" outcome="./../public/contactus.xhtml"/></li>                                                              
+                </p:panel>
+                </p:outputPanel>
+            </f:view>
+          </p:panel>
+        </ui:insert>
+      </div>
+      <!--  <p:panel>
+          <ui:insert name="top">
+            <p:panel style="height: 70px; border: 0;padding: 0;">
+              <p:outputLabel value="School Management" style="font-size: 25pt;font-variant: small-caps;font-weight: bold;"/>
+            </p:panel>
+            <h:panelGrid id="menubarpg" columns="2" style="width: inherit;padding: 0;margin: 0;">
+              <h:form>             
+                <p:menubar style="margin: 0px 0px 0px 150px;padding: 0;border: 0;font-variant: small-caps;background: none;">              
+                  <p:menuitem value="Home" outcome="../index.xhtml" style="width: 70px;text-align: center;"/>
+                  <p:menuitem value="Notice" style="width: 70px;text-align: center;"/>
+                  <p:menuitem value="Result" style="width: 70px;text-align: center;"/>
+                  <p:menuitem value="About us" outcome="../about.xhtml" style="width: 70px;text-align: center;"/>             
+                  <p:menuitem value="Contact us" style="width: 70px;text-align: center;"/>                                             
+                  <p:menuitem value="log in" outcome="../login.xhtml" style="width: 70px;text-align: center;"/>                                             
+                </p:menubar>                
+              </h:form>
+              <p:inplace label="log in" editor="true" style="width: 70px;text-align: center;" 
+                         saveLabel="log in" effect="slide" styleClass="custom">
+                <p:inputText value="" id="un" style="font-size: 8pt;"/><p:watermark for="un" value="Username"/>
+                <p:spacer width="10px;"/>
+                <p:inputText value="" id="ps" style="font-size: 8pt;"/><p:watermark for="ps" value="Password"/>
+                <p:spacer width="10px;"/>
+              </p:inplace>
+            </h:panelGrid>
+          </ui:insert>
+        </p:panel>
+      -->
+      <div id="center">
+        <div id="left">
+          <ui:insert name="left">
+            <p:panel style="border: 0; margin-left: 2px;">
+            <p:accordionPanel style="padding: 0;" activeIndex="#{adminAccordionBean.activeIndex}">
+              <p:ajax event="tabChange" listener="#{adminAccordionBean.onTabChange}"/>
+              <p:tab title="Academic">
+                <div class="adminMenu">
+                  <h:link value="Academic Year" outcome="acyear.xhtml"/>
+                  <h:link value="Class" outcome="class.xhtml"/>
+                  <h:link value="Section" outcome="section.xhtml"/>
+                  <h:link value="Group" outcome="group.xhtml"/>
+                  <h:link value="Subject" outcome="subject.xhtml"/>                                    
+                  <h:link value="Examination" outcome="exam.xhtml"/>
+                  <h:link value="Marks" outcome="marks.xhtml"/>
+                </div>
+              </p:tab>
+              <p:tab title="Class Routine">
+                <div class="adminMenu">
+                  <h:link value="Period" outcome="period.xhtml"/>
+                  <h:link value="Teacher &amp; Subject" outcome="teacherSubjectAssign.xhtml"/>
+                  <h:link value="Class Routine" outcome="classRoutine.xhtml"/>
+                </div>
+              </p:tab>
+              <p:tab title="Student">
+                <div class="adminMenu">                                    
+                  <h:link value="Student Info" outcome="student.xhtml"/>
+                  <h:link value="Attendents" outcome="attend.xhtml"/>
+                  <h:link value="Registration" outcome="registration.xhtml"/>
+                </div>
+              </p:tab>
+              <p:tab title="Teacher">
+                <div class="adminMenu">
+                  <h:link value="Teacher Info" outcome="teacher.xhtml"/>
+                  <h:link value="Teacher Grade" outcome="teacherGrade.xhtml"/>
+                  <h:link value="Teacher Registration" outcome="teacherRegistration.xhtml"/>
+                </div>
+              </p:tab>
+              <p:tab title="Notice">
+                <div class="adminMenu">
+                  <h:link value="Notice" outcome="notice.xhtml"/> 
+                </div>
+              </p:tab>
+              <p:tab title="Others">
+                <div class="adminMenu">
+                  <h:link value="Admin Home" outcome="adminPanel.xhtml"/>
+                </div>
+              </p:tab>
+            </p:accordionPanel>
+              </p:panel>
+          </ui:insert>
+        </div>
+        <div id="content" class="left_content">
+          <p:panel style="min-height: inherit;">
+            <ui:insert name="content">Content</ui:insert>
+          </p:panel>
+        </div>
+      </div>
+      <div id="bottom">
+        <ui:insert name="bottom">
+          <p:panel style="min-height: inherit; margin: 0 auto;text-align: center;">
+            <p:outputLabel value="copyright &copy; 2013. This Product is made as the purpse of Education only."/>
+          </p:panel>
+        </ui:insert>
+      </div>
+    </div>
+  </h:body>
+
+</html>

@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+  <body>
+
+    <ui:composition template="./teacherTemplate.xhtml">
+
+      <ui:define name="title">
+        Marks Update
+      </ui:define>
+
+
+
+      <ui:define name="content">
+        <f:view>
+          <h:form>
+            <p:fieldset legend="Update Marks">
+              <h:panelGrid id="pg" columns="6" border="0" columnClasses="markscolone,markscoltwo,markscolthree,markscolone,markscoltwo,markscolthree" cellpadding="7" style="margin: 0; float: left;">
+                <p:outputLabel value="Academic Year :"/>
+                <p:selectOneMenu id="ay" value="#{marksBean.acyear}" required="true" requiredMessage="select Year" style="width: 100px;">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allAcademicYear}" var="acyear" itemLabel="#{acyear.acyear}" itemValue="#{acyear.acyear}"/>
+                  <p:ajax event="change" update="sec"/>
+                </p:selectOneMenu>
+                <p:message for="ay"/>
+
+                <p:outputLabel value="Exam :"/>
+                <p:selectOneMenu id="ex" value="#{marksBean.examTitle}" required="true" requiredMessage="select subject" style="width: 135px;">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allExams}" var="exam" itemLabel="#{exam.examTitle}" itemValue="#{exam.examTitle}"/>
+                </p:selectOneMenu>
+                <p:message for="ex"/>
+
+                <p:outputLabel value="Class :"/>
+                <p:selectOneMenu id="cls" value="#{marksBean.className}" required="true" requiredMessage="select Class" style="width: 100px;">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allClasses}" var="clas" itemLabel="#{clas.className}" itemValue="#{clas.className}"/>
+                  <p:ajax event="change" update="sec"/>
+                </p:selectOneMenu>
+                <p:message for="cls"/>
+
+                <p:outputLabel value="Student Roll No :"/>
+                <p:inputText id="sr" value="#{marksBean.studentRollNo}" required="true" requiredMessage="enter Roll no." style="width: 128px;"/>
+                <p:message for="sr"/>
+
+                <p:outputLabel value="Section :"/>
+                <p:selectOneMenu id="sec" value="#{marksBean.sectionName}" required="true" requiredMessage="select section" style="width: 100px;">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allSections}" var="section" itemLabel="#{section.sectionName}" itemValue="#{section.sectionName}"/>                        
+                </p:selectOneMenu>
+                <p:message for="sec"/>
+
+                <p:outputLabel value="Marks :"/>
+                <p:inputText id="mrk" value="#{marksBean.marksObtain}" required="true" requiredMessage="enter Marks" style="width: 128px;"/>
+                <p:message for="mrk"/>
+
+                <p:outputLabel value="Group :"/>
+                <p:selectOneMenu id="gp" value="#{marksBean.groupName}" required="true" requiredMessage="select group" style="width: 100px;">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allGroups}" var="group" itemLabel="#{group.groupName}" itemValue="#{group.groupName}"/>                        
+                </p:selectOneMenu>
+                <p:message for="gp"/>
+
+                <p:outputLabel value="Grade :"/>
+                <p:inputText id="gd" value="#{marksBean.subjectGrade}" required="true" requiredMessage="enter Grade" style="width: 128px;"/>
+                <p:message for="gd"/>
+                
+                <p:outputLabel value="Subject :"/>
+                <p:selectOneMenu id="sb" value="#{marksBean.subjectName}" required="true" requiredMessage="select subject" style="width: 100px;">
+                  <f:selectItem itemLabel="select" itemValue=""/>
+                  <f:selectItems value="#{marksBean.allSubjects}" var="sub" itemLabel="#{sub.subjectName}" itemValue="#{sub.subjectName}"/>
+                </p:selectOneMenu>
+                <p:message for="sb"/>
+
+                <p:spacer/>
+                <p:commandButton value="Update" action="#{marksBean.updateData()}">
+                  
+                </p:commandButton>
+              </h:panelGrid>
+            </p:fieldset>
+          </h:form>
+        </f:view>
+
+      </ui:define>
+
+
+    </ui:composition>
+
+  </body>
+</html>

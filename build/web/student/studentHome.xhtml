@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+  <body>
+
+    <ui:composition template="./studentTemplate.xhtml">
+
+      <ui:define name="title">
+        title
+      </ui:define>
+
+     
+      <ui:define name="right">
+        
+      </ui:define>
+
+      <ui:define name="content">
+        <h1 class="pgheader" style="text-align: center;border: none;">Welcome to Student Home</h1>
+        <h:panelGrid columns="3" cellpadding="20">
+          <h:link outcome="studentProfile.xhtml">
+            <p:graphicImage value="./../resources/images/profile.PNG"/>
+          </h:link>
+          <h:link outcome="myAttendence.xhtml">
+            <p:graphicImage value="./../resources/images/attendance.jpg"/>            
+          </h:link>
+          <h:link outcome="myResult.xhtml">
+            <p:graphicImage value="./../resources/images/Results.jpg"/>
+          </h:link>
+          
+        </h:panelGrid>
+      </ui:define>
+
+      
+    </ui:composition>
+
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Exam info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form id="addform">
+            <p:growl id="grl" showDetail="true"/>
+            <p:fieldset legend="Add Exam Title" style="font-size: 9pt" >
+              <p:panelGrid columns="3">
+                <p:column>
+                  <p:outputLabel value="Exam Title"></p:outputLabel><br/>
+                  <p:inputText value="#{examTitleBean.examTitle}"></p:inputText>
+                </p:column>
+                <p:column>
+                  <p:outputLabel value="Description"></p:outputLabel><br/>
+                  <p:inputText value="#{examTitleBean.examDescription}"></p:inputText>
+                </p:column>
+                <p:column>
+                  <p:commandButton value="Save" action="#{examTitleBean.insertExam()}" update=":dtform:exTitle,:addform:grl" icon="ui-icon-disk"/>
+                </p:column>
+              </p:panelGrid>
+            </p:fieldset>  
+            </h:form>
+          <h:form id="dtform">
+            <p:dataTable id="exTitle" value="#{examTitleBean.allExamTitle}" var="item" style="font-size: 9pt">
+              <p:column style="width: 40px;">
+                <f:facet name="header">Exam Id</f:facet>
+                #{item.examTitleId}
+              </p:column>
+              <p:column style="width: 150px;">
+                <f:facet name="header">Exam Title</f:facet>
+                #{item.examTitle}
+              </p:column>
+              <p:column>
+                <f:facet name="header">Description</f:facet>
+                #{item.examDescription}
+              </p:column>
+              <p:column headerText="Option" style="width: 100px;">
+                <p:commandButton value="Edit" action="#{examTitleUpdate.doSetSelectedRow()}"
+                                 oncomplete="editdialog.show()" update=":dtform:editpane" icon="ui-icon-pencil" style="font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{examTitleUpdate.selectedRow}" value="#{item}"/>
+                </p:commandButton>
+                <p:spacer width="3px"/>
+                <p:commandButton value="Delete" action="#{examTitleBean.deleteExam()}" update=":dtform:exTitle,:addform:grl" icon="ui-icon-close" style="color: #D20005;font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{examTitleBean}" value="#{item}"/>
+                </p:commandButton> 
+              </p:column>
+            </p:dataTable>            
+             <p:dialog id="dialog" widgetVar="editdialog" showEffect="clip" hideEffect="fold" resizable="false" header="Edit Exam Title">
+              <p:panelGrid id="editpane"  columns="2">
+                <p:outputLabel value="Exam Title ID :"/>
+                <p:outputLabel value="#{examTitleUpdate.examTitleId}"/>
+                
+                <p:outputLabel value="Exam Title :"/>
+                <p:inputText value="#{examTitleUpdate.examTitle}"/>
+                
+                <p:outputLabel value="Description :"/>
+                <p:inputText value="#{examTitleUpdate.examDescription}"/>
+                                
+                <p:spacer/>
+                <p:commandButton value="Update" action="#{examTitleUpdate.updateExam()}" update=":dtform:exTitle,:addform:grl" oncomplete="editdialog.hide()"/>
+              </p:panelGrid>
+
+            </p:dialog>
+          </h:form>
+        </f:view>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

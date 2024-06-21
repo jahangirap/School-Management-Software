@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <body>
+
+    <ui:composition template="./publicTemplate.xhtml">
+
+      <ui:define name="title">
+        title
+      </ui:define>     
+
+      <ui:define name="right">
+
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h1 class="pgheader" style="text-align: center;border: none;">School Notice Board</h1>
+
+          <p:panel style="border: 0;">
+            <p:accordionPanel value="#{noticeBean.allNotice}" var="notice" style="font-size: 8pt;">
+
+              <p:tab title="#{notice.noticeTitle}">
+                <div style="height: 285px;">
+                  <div style="text-align: center;border: none;" class="pgheader">
+                    <div style="float: right;font-size: 7pt;">
+                      <h:form>
+                        <p:spacer height="25"/><br/>
+                        <p:commandButton value="Print" icon="ui-icon-print"></p:commandButton>
+                        <p:commandButton value="PDF" icon="ui-icon-document"></p:commandButton>
+                      </h:form>
+                    </div>
+                    <div style="text-align: center;">
+                      <h4 style="padding: 0;margin: 0;">
+                        Nikli Gorachad Pilot High School
+                      </h4>                   
+                      Nikli, Kishoreganj
+                      <h1 style="color: black;font-size: 9pt;font-weight: normal;">
+                        Nikli, Kishoreganj
+                      </h1>                    
+                    </div>
+                  </div>
+                  <div style="padding: 10px;font-size: 10pt;">
+                    <h:form>
+                      <h:panelGrid columns="2">
+                        <p:outputPanel style="text-align: center;text-decoration: underline;font-size: 12pt;font-weight: bold;">
+                          <p:outputLabel style=" width: 200px;height: 20px;display: block;">
+                            #{notice.noticeTitle}
+                          </p:outputLabel>
+                          
+                        </p:outputPanel>
+                        <p:outputPanel>
+                          <p:outputLabel style="margin: 0;">Publish Date : #{notice.publishDate}</p:outputLabel><br/>
+                          <p:outputLabel style="margin: 0;">Expire Date : #{notice.validateDate}</p:outputLabel>
+
+                        </p:outputPanel>
+                        
+                        <p:inputTextarea value="#{notice.notice}" cols="63" rows="7" readonly="true" 
+                                         style="background: none;text-indent: 20px;text-align: justify;border: none;margin: 0;"/>
+
+                        <p:graphicImage value="../DisplayNoticeImage?noti_id=#{notice.noticeId}" width="160"/>
+                        
+                        <p:outputPanel style="text-align: center;font-size: 9pt;">
+                          <p:outputLabel value="Authority"/><br/>
+                          <p:outputLabel value="Nikli Gorachad Pilot High School"/>
+                          
+                        </p:outputPanel>
+                      </h:panelGrid>
+
+                    </h:form>
+                  </div>
+                </div>
+              </p:tab>            
+
+            </p:accordionPanel>
+          </p:panel>
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

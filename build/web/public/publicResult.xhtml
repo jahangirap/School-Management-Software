@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <body>
+
+    <ui:composition template="./publicTemplate.xhtml">
+
+      <ui:define name="title">
+        title
+      </ui:define>      
+
+      <ui:define name="right">
+        right
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:outputText value="Here only total marks and GPA of each student are given. Registared user can see the details after ">
+          </h:outputText><h:link value="login." outcome="../index.xhtml"/>
+          <h:form>
+            <p:spacer height="15"/>
+            <h:panelGrid columns="2">
+            <h:panelGrid id="pggg" columns="2" columnClasses="markscolone" cellpadding="10" style="font-size: 9pt; width: inherit;">
+              <f:facet name="header">If you re-select Academic year or Class then you must select your desire section again.</f:facet>
+
+              <p:outputLabel value="Academic Year : "/>
+              <p:selectOneMenu value="#{marksBean.acyear}" style="width: 130px;">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{marksBean.allAcademicYear}" var="acy" itemLabel="#{acy.acyear}" itemValue="#{acy.acyear}"/>
+                <p:ajax event="change" listener="#{marksBean.doClassRender()}" update="pggg,mdt"/>
+              </p:selectOneMenu>
+              
+              <p:outputLabel id="cl" value="Class : " rendered="#{marksBean.renderClass}"/>
+              <p:selectOneMenu id="cls" value="#{marksBean.className}" style="width: 130px;" rendered="#{marksBean.renderClass}">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{marksBean.allClasses}" var="clas" itemLabel="#{clas.className}" itemValue="#{clas.className}"/>
+                <p:ajax event="change" listener="#{marksBean.doSectionRender()}" update="pggg,mdt"/>
+              </p:selectOneMenu>
+
+              <p:outputLabel value="Section : " rendered="#{marksBean.renderSection}"/>
+              <p:selectOneMenu id="sec" value="#{marksBean.sectionName}" style="width: 130px;" rendered="#{marksBean.renderSection}">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{marksBean.allSections}" var="section" itemLabel="#{section.sectionName}" itemValue="#{section.sectionName}"/>
+                <p:ajax event="change" listener="#{marksBean.doExamRender()}" update="pggg,mdt"/>
+              </p:selectOneMenu>
+
+              <p:outputLabel value=" Exam : " rendered="#{marksBean.renderExam}"/>
+              <p:selectOneMenu value="#{marksBean.examTitle}" style="width: 130px;" rendered="#{marksBean.renderExam}">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{marksBean.allExams}" var="exam" itemLabel="#{exam.examTitle}" itemValue="#{exam.examTitle}"/>
+                <p:ajax event="change" update="mdt"/>
+              </p:selectOneMenu>             
+
+            </h:panelGrid>
+            <p:outputPanel style="margin-right: 20px;">
+              <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">  
+                <f:facet name="start">  
+                  <h:graphicImage value="./../resources/images/loading.gif" />  
+                </f:facet>  
+
+                <f:facet name="complete">  
+                  <h:outputText value="" />  
+                </f:facet>  
+              </p:ajaxStatus>
+            </p:outputPanel>
+              </h:panelGrid>
+            <p:dataTable id="mdt" value="#{marksBean.allMarksForPublic}" var="mark" widgetVar="markstable" style="font-size: 9pt;">
+
+              <p:column headerText="Roll No." filterBy="#{mark.studentRollNo}">
+                #{mark.studentRollNo}
+              </p:column>
+              <p:column headerText="Name" filterBy="#{mark.studentName}">
+                #{mark.studentName}
+              </p:column>
+              <p:column headerText="Marks" filterBy="#{mark.marksObtain}">
+                #{mark.marksObtain}
+              </p:column>
+
+            </p:dataTable>
+          </h:form>
+        </f:view>
+
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

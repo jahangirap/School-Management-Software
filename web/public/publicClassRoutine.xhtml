@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <body>
+
+    <ui:composition template="./publicTemplate.xhtml">
+
+      <ui:define name="title">
+        title
+      </ui:define>            
+
+      <ui:define name="content">
+        <f:view>
+          <h:form>
+            <p:panelGrid columns="3" columnClasses="markscolone">
+              <p:outputLabel value="Academic Year : "/>
+              <p:selectOneMenu value="#{classTimeTableBean.acyId}" id="aa" style="width: 130px;">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{classTimeTableBean.allAcademicYear}" var="acy" itemLabel="#{acy.acyear}" itemValue="#{acy.acyId}"/>
+                <p:ajax event="change" update="ss"/>
+              </p:selectOneMenu>
+              <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel1">  
+                <f:facet name="start">  
+                  <h:graphicImage value="./../resources/images/loading.gif"  width="16" />  
+                </f:facet>  
+
+                <f:facet name="complete">  
+                  <p:message for="aa"/>  
+                </f:facet>  
+              </p:ajaxStatus>
+              
+              <p:outputLabel value="Class : "/>
+              <p:selectOneMenu value="#{classTimeTableBean.classId}" id="cc" style="width: 130px;">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{classTimeTableBean.allClass}" var="cls" itemLabel="#{cls.className}" itemValue="#{cls.classId}"/>
+                <p:ajax event="change" update="ss"/>
+              </p:selectOneMenu>
+              <p:message for="cc"/>
+              
+              <p:outputLabel value="Section : "/>
+              <p:selectOneMenu value="#{classTimeTableBean.sectionId}" id="ss" style="width: 130px;">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{classTimeTableBean.allSection}" var="sec" itemLabel="#{sec.sectionName}" itemValue="#{sec.sectionId}"/>
+                
+              </p:selectOneMenu>
+              <p:message for="ss"/>
+              
+              <p:outputLabel value="Group : "/>
+              <p:selectOneMenu value="#{classTimeTableBean.groupId}" id="gp" style="width: 130px;">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{classTimeTableBean.allGroup}" var="grp" itemLabel="#{grp.groupName}" itemValue="#{grp.groupId}"/>
+                
+              </p:selectOneMenu>
+              <p:message for="gp"/>
+              
+              <p:outputLabel value="Day : "/>
+              <p:selectOneMenu value="#{classTimeTableBean.day}" id="da" style="width: 130px;">
+                <f:selectItem itemLabel="select" itemValue=""/>
+                <f:selectItems value="#{classTimeTableBean.days}" var="day" itemLabel="#{day}" itemValue="#{day}"/>
+                
+              </p:selectOneMenu>
+              <p:message for="da"/>
+              
+              <f:facet name="footer">
+                <p:commandButton value="show" action="#{classTimeTableBean.doSet()}" update="rt" style="margin-left: 200px;"/>
+              </f:facet>              
+              
+            </p:panelGrid>
+            <p:dataTable id="rt" value="#{classTimeTableBean.classRoutine}" var="routine">
+              <p:column headerText="Period">
+                <p:outputLabel value="#{routine.period}"/>
+              </p:column>
+              <p:column headerText="Subject">
+                #{routine.subjectName}
+              </p:column>
+              <p:column headerText="Teacher">
+                <p:outputLabel value="#{routine.teacherName}"/>
+              </p:column>      
+              </p:dataTable>
+            
+          </h:form>
+        </f:view>
+
+      </ui:define>
+
+
+    </ui:composition>
+
+  </body>
+</html>

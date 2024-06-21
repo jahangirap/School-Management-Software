@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Subject info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form>
+            <p:dataTable value="#{displayAllStudentInfoBean.allStudentData}" var="item" 
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="3,5,10" widgetVar="50">
+
+              <p:column headerText="Student Name" filterBy="#{item.studentName}">           
+                #{item.studentName}
+              </p:column>                          
+
+              <p:column headerText="Academic Year" filterBy="#{item.academicYear}">           
+                #{item.academicYear}
+              </p:column>
+
+              <p:column headerText="Class Name" filterBy="#{item.className}">           
+                #{item.className}
+              </p:column>
+
+              <p:column headerText="Section Name" filterBy="#{item.sectionName}">           
+                #{item.sectionName}
+              </p:column>
+              <p:column headerText="Group Name" filterBy="#{item.groupName}">           
+                #{item.groupName}
+              </p:column>
+
+              <p:column headerText="Show Details" style="text-align: center;width: 20px;">
+                <p:rowToggler/>
+              </p:column>
+
+              <p:column>
+                <f:facet name="header">Edit</f:facet>
+                <p:commandLink value="Edit" action="#{displayAllStudentInfoBean.goEditPage()}">
+                  <f:setPropertyActionListener target="#{displayAllStudentInfoBean}" value="#{item}"/>
+                </p:commandLink>
+              </p:column>
+
+              <p:rowExpansion>               
+                 
+                    <p:panelGrid  columnClasses="firstcolumn,thirdcolumn">
+                      <p:row>            
+                        <p:column><p:outputLabel value="Student Name :"/></p:column>
+                        <p:column><p:outputLabel value="#{item.studentName}"/></p:column>
+                        <p:column rowspan="4">
+                          <p:graphicImage value="/DisplayStudentPhoto?student_id=#{item.studentId}" width="115" height="130" style="border: 10px ridge #c2dfef;"/>
+                        </p:column>
+                      </p:row>
+                      <p:row>            
+                        <p:column><p:outputLabel value="Class :"/></p:column>
+                        <p:column><p:outputLabel value="#{item.className}"/></p:column>                        
+                      </p:row>
+                      <p:row>            
+                        <p:column><p:outputLabel value="Section :"/></p:column>
+                        <p:column> <p:outputLabel value="#{item.sectionName}"/></p:column>                        
+                      </p:row>
+                      <p:row>            
+                        <p:column><p:outputLabel value="Roll No. :"/></p:column>
+                        <p:column><p:outputLabel value="#{item.studentRollNo}"/></p:column>                        
+                      </p:row>                 
+                    </p:panelGrid>
+                 
+                  <p:panelGrid columns="2"  columnClasses="firstcolumn,thirdcolumn">
+                    <f:facet name="header">Students Details Information</f:facet>
+                    <p:outputLabel value="Student Name"/>
+                    <p:outputLabel value="#{item.studentName}"/>
+
+                    <p:outputLabel value="Father Name"/>
+                    <p:outputLabel value="#{item.fatherName}"/>
+
+                    <p:outputLabel value="Mother Name"/>
+                    <p:outputLabel value="#{item.motherName}"/>
+
+                    <p:outputLabel value="Date of Birth"/>
+                    <p:outputLabel value="#{item.dateOfBirth}"/>
+
+                    <p:outputLabel value="Age"/>
+                    <p:outputLabel value="#{item.age}"/>
+
+                    <p:outputLabel value="Gender"/>
+                    <p:outputLabel value="#{item.gender}"/>
+
+                    <p:outputLabel value="TelePhone"/>
+                    <p:outputLabel value="#{item.telephoneNo}"/>
+
+                    <p:outputLabel value="Mobile"/>
+                    <p:outputLabel value="#{item.mobileNo}"/>
+
+                    <p:outputLabel value="Present Address"/>
+                    <p:outputLabel value="#{item.presentAddress}"/>
+
+                    <p:outputLabel value="Parmanet Address"/>
+                    <p:outputLabel value="#{item.parmanetAddress}"/>
+
+                    <p:outputLabel value="Academic Year"/>
+                    <p:outputLabel value="#{item.academicYear}"/>
+
+                    <p:outputLabel value="Class Name"/>
+                    <p:outputLabel value="#{item.className}"/>
+
+                    <p:outputLabel value="Section Name"/>
+                    <p:outputLabel value="#{item.sectionName}"/>
+
+                    <p:outputLabel value="Group Name"/>
+                    <p:outputLabel value="#{item.groupName}"/>
+
+                    <p:outputLabel value="Student Roll No"/>
+                    <p:outputLabel value="#{item.studentRollNo}"/>
+
+                    <p:outputLabel value="Registration Date"/>
+                    <p:outputLabel value="#{item.payDate}"/>
+
+                    <p:outputLabel value="Registration Fee"/>
+                    <p:outputLabel value="#{item.feeAmount}"/>
+
+                    <p:outputLabel value="User Name"/>
+                    <p:outputLabel value="#{item.userName}"/>
+                  </p:panelGrid>
+              
+              </p:rowExpansion>
+
+            </p:dataTable>
+          </h:form>
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>

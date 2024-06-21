@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+  <body>
+
+    <ui:composition template="./adminTemplate.xhtml">
+
+      <ui:define name="title">
+        School Management - Admin - Section info
+      </ui:define>
+
+      <ui:define name="content">
+        <f:view>
+          <h:form id="adf">
+            <p:growl id="grl" showDetail="true"/>
+            <p:fieldset legend="Add New Section" id="fld" style="font-size: 9pt;">
+              <p:panelGrid columns="4">
+                <p:column>
+                  <p:outputLabel value="Academic Year :" /><br/>
+                  <p:selectOneMenu value="#{sectionBean.acyearId}" required="true" requiredMessage="Field must not empty">
+                    <f:selectItem itemLabel="Select Year " itemValue=""/>
+                    <f:selectItems value="#{sectionBean.allAcyears}" var="aac" itemLabel="#{aac.acyear}" itemValue="#{aac.acyearId}"/>
+                  </p:selectOneMenu>                                    
+                </p:column>
+                <p:column>
+                  <p:outputLabel value="Class Name :" /><br/>
+                  <p:selectOneMenu value="#{sectionBean.classId}" required="true" requiredMessage="Field must not empty">
+                    <f:selectItem itemLabel="Select Class" itemValue=""/>
+                    <f:selectItems value="#{sectionBean.allClasses}" var="ccc" itemLabel="#{ccc.className}" itemValue="#{ccc.classId}"/>
+                  </p:selectOneMenu>                                    
+                </p:column>
+                <p:column>
+                  <p:outputLabel value="Section Name :"/><br/>
+                  <p:inputText value="#{sectionBean.sectionName}" required="true" requiredMessage="Field nust not empty"/>
+                </p:column>
+                <p:column>
+                  <p:outputLabel value=""/><br/>
+                  <p:commandButton value="Save" action="#{sectionBean.insertSection}" update="grl,:dtform:dt,fld" icon="ui-icon-disk" style="font-size: 8pt;"/>
+                </p:column>
+              </p:panelGrid>
+            </p:fieldset>                           
+          </h:form>
+          <h:form id="dtform">
+            <p:dataTable id="dt" value="#{sectionBean.allSectionName}" var="item" style="font-size: 9pt;">
+              <p:column headerText="ID" style="width: 40px;text-align: center;">                                
+                #{item.sectionId}
+              </p:column>
+              <p:column headerText="Academic Year" filterBy="#{item.acyear}" style="text-align: center;">                                
+                #{item.acyear}
+              </p:column>
+              <p:column headerText="Class Name" filterBy="#{item.className}">                                
+                #{item.className}
+              </p:column>
+              <p:column headerText="Section name">                                
+                #{item.sectionName}
+              </p:column>
+              <p:column headerText="Option" style="width: 150px;">
+                
+                <p:commandButton value="Edit" action="#{sectionUpdate.prepareUpdate()}"
+                                 oncomplete="editdialog.show()" update=":dtform:editpane" icon="ui-icon-pencil" style="color: #D20005;font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{sectionUpdate.sectionId}" value="#{item.sectionId}"/>
+                </p:commandButton>                       
+                <p:spacer width="5"/>                       
+                <p:commandButton value="Delete" action="#{sectionBean.deleteSection}" update=":adf:grl,dt" icon="ui-icon-close" style="color: red;font-size: 7pt;">
+                  <f:setPropertyActionListener target="#{sectionBean}" value="#{item}"/>                                    
+                </p:commandButton>                        
+              </p:column>
+            </p:dataTable>
+            <p:dialog id="dialog" widgetVar="editdialog" showEffect="clip" hideEffect="fold" resizable="false" header="Edit Section">
+              <p:panelGrid id="editpane"  columns="2">
+                <p:outputLabel value="Section ID :"/>
+                <p:inputText value="#{sectionUpdate.sectionId}"/>
+
+                <p:outputLabel value="Academic Year :" />
+                <p:selectOneMenu value="#{sectionUpdate.acyear}" required="true" requiredMessage="Field must not empty">                  
+                  <f:selectItem itemLabel="Select" itemValue=""/>
+                  <f:selectItems value="#{sectionUpdate.allAcyears}" var="acy" itemLabel="#{acy.acyear}" itemValue="#{acy.acyear}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Class Name :" />
+                <p:selectOneMenu value="#{sectionUpdate.className}" required="true" requiredMessage="Field must not empty">
+                  
+                  <f:selectItem itemLabel="Select" itemValue=""/>
+                  <f:selectItems value="#{sectionUpdate.allClasses}" var="clas" itemLabel="#{clas.className}" itemValue="#{clas.className}"/>
+                </p:selectOneMenu> 
+
+                <p:outputLabel value="Section Name :"/>
+                <p:inputText value="#{sectionUpdate.sectionName}" required="true" requiredMessage="Field nust not empty"/>
+                <p:spacer/>
+                <p:commandButton value="Update" action="#{sectionUpdate.updateSection()}" oncomplete="editdialog.hide()" update="dt"/>
+              </p:panelGrid>
+
+            </p:dialog>
+          </h:form>
+        </f:view>
+      </ui:define>
+
+    </ui:composition>
+
+  </body>
+</html>
